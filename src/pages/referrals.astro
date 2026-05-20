@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { clinic } from '@/data/clinic';
+---
+<BaseLayout
+  title="For Referring Providers"
+  description="Referral information for optometrists and family physicians sending patients to Tri-City Eye Care."
+>
+  <section class="border-b border-ink-100 bg-gradient-to-b from-brand-50/40 to-white">
+    <div class="container-prose py-16 sm:py-20">
+      <div class="eyebrow mb-3">For Optometrists & Family Physicians</div>
+      <h1 class="text-4xl sm:text-5xl font-semibold">Refer a patient</h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-600 leading-relaxed">
+        We accept referrals from optometrists and primary care providers across the Tri-City region. Once a referral
+        is received, our office contacts the patient directly to book.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-prose py-14 grid lg:grid-cols-2 gap-10">
+      <div>
+        <h2 class="text-2xl font-semibold mb-4">How to send a referral</h2>
+        <ol class="space-y-4 text-ink-700 leading-relaxed">
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 grid place-items-center h-7 w-7 rounded-full bg-brand-700 text-white text-sm font-semibold">1</span>
+            <div>
+              <strong>Ocean eReferral</strong> (preferred) — search for <em>Tri-City Eye Care</em> in the Ocean directory and send through your usual workflow.
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 grid place-items-center h-7 w-7 rounded-full bg-brand-700 text-white text-sm font-semibold">2</span>
+            <div>
+              <strong>Fax</strong> — secure fax to <span class="font-mono">{clinic.fax}</span>. Include patient demographics, reason for referral, and pertinent imaging.
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 grid place-items-center h-7 w-7 rounded-full bg-brand-700 text-white text-sm font-semibold">3</span>
+            <div>
+              <strong>We contact the patient</strong> directly to book. Urgent referrals are triaged on receipt.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="space-y-4">
+        <div class="card">
+          <h3 class="text-base font-semibold text-ink-900">What to include</h3>
+          <ul class="mt-2 text-sm text-ink-700 space-y-1.5 list-disc pl-5">
+            <li>Reason for referral and clinical findings</li>
+            <li>Relevant imaging (OCT, fundus photos, VF) if available</li>
+            <li>Patient medications and ocular history</li>
+            <li>Best contact phone number for the patient</li>
+          </ul>
+        </div>
+        <div class="card bg-brand-50/40 border-brand-100">
+          <h3 class="text-base font-semibold text-ink-900">Urgent referrals</h3>
+          <p class="mt-2 text-sm text-ink-700 leading-relaxed">
+            For same-day or next-day concerns (acute vision loss, suspected retinal detachment, acute angle closure),
+            please call the clinic during business hours and flag the fax as <strong>URGENT</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink-50/60 border-t border-ink-100">
+    <div class="container-prose py-12">
+      <h2 class="text-2xl font-semibold mb-6">Clinic contact for providers</h2>
+      <dl class="grid sm:grid-cols-3 gap-4 text-sm">
+        <div class="card">
+          <dt class="text-ink-500">Phone</dt>
+          <dd class="mt-1 text-ink-900 font-mono">{clinic.phone}</dd>
+        </div>
+        <div class="card">
+          <dt class="text-ink-500">Fax</dt>
+          <dd class="mt-1 text-ink-900 font-mono">{clinic.fax}</dd>
+        </div>
+        <div class="card">
+          <dt class="text-ink-500">Email</dt>
+          <dd class="mt-1 text-ink-900 break-all">{clinic.email}</dd>
+        </div>
+      </dl>
+      <p class="text-xs text-ink-500 mt-3">Please do not send patient identifiers by email. Use fax or Ocean for clinical information.</p>
+    </div>
+  </section>
+</BaseLayout>

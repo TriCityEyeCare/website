@@ -1,0 +1,131 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DoctorCard from '@/components/DoctorCard.astro';
+import { doctors } from '@/data/doctors';
+import { clinic } from '@/data/clinic';
+---
+<BaseLayout
+  title="Tri-City Eye Care"
+  description="Comprehensive ophthalmology and surgical eye care in Kitchener, Ontario. New patients by referral from an eye care provider."
+>
+  <!-- Hero -->
+  <section class="border-b border-ink-100 bg-gradient-to-b from-brand-50/40 to-white">
+    <div class="container-prose py-20 sm:py-28">
+      <div class="max-w-3xl">
+        <div class="eyebrow mb-4">Comprehensive Ophthalmology · Kitchener</div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl leading-[1.05] font-semibold">
+          Surgical and medical eye care, close to home.
+        </h1>
+        <p class="mt-6 text-lg text-ink-600 leading-relaxed max-w-2xl">
+          {clinic.name} is a comprehensive ophthalmology clinic in east Kitchener.
+          Our five surgeons provide cataract surgery, retinal injections, glaucoma care,
+          and laser treatments — supported by surgical privileges at Cambridge Memorial Hospital.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="/doctors" class="btn-primary">Meet our doctors</a>
+          <a href="/find-us" class="btn-ghost">Find the clinic →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Referral notice (prominent, replaces "call us" CTA) -->
+  <section class="bg-white">
+    <div class="container-prose py-12">
+      <div class="rounded-2xl border border-brand-100 bg-brand-50/50 p-6 sm:p-8 flex flex-col md:flex-row md:items-center gap-6">
+        <div class="flex-shrink-0 grid place-items-center h-12 w-12 rounded-full bg-brand-700 text-white">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="13" y2="17"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-xl font-semibold text-ink-900">New patients are seen by referral.</h2>
+          <p class="mt-1.5 text-ink-600 leading-relaxed">
+            Please ask your optometrist or family doctor to send a referral. Most appointments are booked directly from
+            the referral — there is no need to phone the clinic in advance.
+          </p>
+        </div>
+        <a href="/referrals" class="btn-ghost flex-shrink-0">For providers →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services preview -->
+  <section class="bg-white">
+    <div class="container-prose py-16">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <div class="eyebrow mb-2">What we treat</div>
+          <h2 class="text-3xl font-semibold">Services at a glance</h2>
+        </div>
+        <a href="/services" class="hidden sm:inline-block text-sm text-brand-700 hover:text-brand-800">All services →</a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {[
+          ['Cataract surgery', 'Standard and premium IOLs, including toric and presbyopia-correcting lenses.'],
+          ['Medical retina', 'Anti-VEGF injections and laser for wet AMD, diabetic retinopathy, and vein occlusions.'],
+          ['Glaucoma', 'Medical, laser (SLT), and surgical management.'],
+          ['Diabetic eye exams', 'Screening and treatment for diabetic retinopathy.'],
+          ['Laser procedures', 'In-clinic retinal and glaucoma laser.'],
+          ['Comprehensive consults', 'Second opinions and complex anterior-segment assessments.'],
+        ].map(([title, desc]) => (
+          <div class="card">
+            <h3 class="text-base font-semibold text-ink-900">{title}</h3>
+            <p class="mt-1.5 text-sm text-ink-600 leading-relaxed">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Doctors preview -->
+  <section class="bg-ink-50/60 border-y border-ink-100">
+    <div class="container-prose py-16">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <div class="eyebrow mb-2">Our team</div>
+          <h2 class="text-3xl font-semibold">Five surgeons. One clinic.</h2>
+        </div>
+        <a href="/doctors" class="hidden sm:inline-block text-sm text-brand-700 hover:text-brand-800">All doctors →</a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {doctors.map((d) => <DoctorCard doctor={d} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Find us preview -->
+  <section class="bg-white">
+    <div class="container-prose py-16 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="eyebrow mb-2">Visit</div>
+        <h2 class="text-3xl font-semibold">East Kitchener, near Sportsworld.</h2>
+        <p class="mt-4 text-ink-600 leading-relaxed">
+          We’re located in a ground-floor commercial unit with free on-site parking. Look for
+          Unit&nbsp;A — accessible entrance off the main parking lot.
+        </p>
+        <address class="not-italic mt-5 text-ink-700 leading-relaxed">
+          {clinic.address.line1}<br/>
+          {clinic.address.city}, {clinic.address.province} {clinic.address.postal}
+        </address>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={clinic.mapsLink} target="_blank" rel="noopener" class="btn-primary">Get directions</a>
+          <a href="/find-us" class="btn-ghost">More on visiting →</a>
+        </div>
+      </div>
+      <div class="aspect-[4/3] rounded-xl overflow-hidden border border-ink-100 shadow-sm">
+        <iframe
+          src={clinic.mapsEmbed}
+          width="100%"
+          height="100%"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Map to Tri-City Eye Care"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

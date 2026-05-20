@@ -1,0 +1,14 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page not found" description="The page you requested could not be found.">
+  <section class="container-narrow py-24 text-center">
+    <div class="eyebrow mb-3">404</div>
+    <h1 class="text-4xl font-semibold">We couldn’t find that page.</h1>
+    <p class="mt-4 text-ink-600">The link may be outdated or mistyped.</p>
+    <div class="mt-8 flex justify-center gap-3">
+      <a href="/" class="btn-primary">Home</a>
+      <a href="/doctors" class="btn-ghost">Our doctors</a>
+    </div>
+  </section>
+</BaseLayout>

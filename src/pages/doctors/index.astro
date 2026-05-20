@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DoctorCard from '@/components/DoctorCard.astro';
+import { doctors } from '@/data/doctors';
+---
+<BaseLayout
+  title="Our Doctors"
+  description="Meet the five ophthalmologists practicing at Tri-City Eye Care in Kitchener, Ontario."
+>
+  <section class="border-b border-ink-100 bg-gradient-to-b from-brand-50/40 to-white">
+    <div class="container-prose py-16 sm:py-20">
+      <div class="eyebrow mb-3">Our Team</div>
+      <h1 class="text-4xl sm:text-5xl font-semibold">Our doctors</h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-600 leading-relaxed">
+        Five comprehensive ophthalmologists with subspecialty interests across retina, glaucoma, cataract,
+        and neuro-ophthalmology. All hold surgical privileges at Cambridge Memorial Hospital.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-prose py-14">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {doctors.map((d) => <DoctorCard doctor={d} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

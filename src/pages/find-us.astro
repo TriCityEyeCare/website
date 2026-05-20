@@ -1,0 +1,116 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { clinic } from '@/data/clinic';
+---
+<BaseLayout
+  title="Find Us"
+  description="Directions, parking, and accessibility info for Tri-City Eye Care, 4278 King St E, Kitchener."
+>
+  <section class="border-b border-ink-100 bg-gradient-to-b from-brand-50/40 to-white">
+    <div class="container-prose py-16 sm:py-20">
+      <div class="eyebrow mb-3">Visiting the Clinic</div>
+      <h1 class="text-4xl sm:text-5xl font-semibold">Find us</h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-600 leading-relaxed">
+        We’re in a ground-floor commercial unit on King Street East in Kitchener, just east of Sportsworld Crossing.
+        Free on-site parking, accessible entrance, and one-floor layout — no stairs.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-prose py-14 grid lg:grid-cols-5 gap-10">
+      <!-- Map -->
+      <div class="lg:col-span-3">
+        <div class="aspect-[4/3] rounded-xl overflow-hidden border border-ink-100 shadow-sm">
+          <iframe
+            src={clinic.mapsEmbed}
+            width="100%"
+            height="100%"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Map to Tri-City Eye Care"
+          ></iframe>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a href={clinic.mapsLink} target="_blank" rel="noopener" class="btn-primary">Open in Google Maps</a>
+          <a
+            href={`https://maps.apple.com/?daddr=${encodeURIComponent(clinic.address.line1 + ', ' + clinic.address.city + ', ' + clinic.address.province + ' ' + clinic.address.postal)}`}
+            target="_blank"
+            rel="noopener"
+            class="btn-ghost"
+          >Open in Apple Maps</a>
+        </div>
+      </div>
+
+      <!-- Practical info -->
+      <div class="lg:col-span-2 space-y-6">
+        <div>
+          <h2 class="text-2xl font-semibold mb-3">Address</h2>
+          <address class="not-italic text-ink-700 leading-relaxed">
+            {clinic.name}<br/>
+            {clinic.address.line1}<br/>
+            {clinic.address.city}, {clinic.address.province} {clinic.address.postal}
+          </address>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold mb-3">Hours</h2>
+          <ul class="text-ink-700 space-y-1">
+            {clinic.hours.map((h) => (
+              <li class="flex justify-between gap-4 text-sm border-b border-ink-100 py-1.5">
+                <span>{h.day}</span><span class="text-ink-500">{h.time}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="text-xs text-ink-500 mt-2">Appointment times vary by physician. Patients are given a specific time when booked.</p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold mb-3">Parking</h2>
+          <p class="text-ink-700 leading-relaxed text-sm">
+            Free on-site parking directly in front of the building. Look for <strong>Unit&nbsp;A</strong> on the King Street side.
+            Accessible parking spaces are nearest the entrance.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold mb-3">Accessibility</h2>
+          <ul class="text-ink-700 leading-relaxed text-sm space-y-1.5 list-disc pl-5">
+            <li>Step-free entrance, single-floor clinic.</li>
+            <li>Wheelchair-accessible exam rooms and washroom.</li>
+            <li>Companion seating in waiting area.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold mb-3">By transit</h2>
+          <p class="text-ink-700 leading-relaxed text-sm">
+            Grand River Transit serves King Street East. The Sportsworld Crossing area has several bus stops within a short walk
+            of the clinic. Plan your trip on the
+            <a href="https://www.grt.ca/" target="_blank" rel="noopener" class="text-brand-700 hover:text-brand-800">GRT site</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What to bring -->
+  <section class="bg-ink-50/60 border-t border-ink-100">
+    <div class="container-prose py-12">
+      <h2 class="text-2xl font-semibold mb-6">What to bring to your appointment</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          ['Health card', 'Ontario OHIP card (or your provincial equivalent).'],
+          ['Glasses & meds', 'Current glasses and a list of all medications.'],
+          ['A driver', 'Your eyes may be dilated — plan for someone to drive you home.'],
+          ['Sunglasses', 'Dilation makes light uncomfortable for a few hours.'],
+        ].map(([title, desc]) => (
+          <div class="card">
+            <h3 class="text-base font-semibold text-ink-900">{title}</h3>
+            <p class="mt-1.5 text-sm text-ink-600 leading-relaxed">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

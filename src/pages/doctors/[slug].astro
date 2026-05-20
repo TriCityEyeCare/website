@@ -1,0 +1,134 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { doctors } from '@/data/doctors';
+
+export function getStaticPaths() {
+  return doctors.map((d) => ({ params: { slug: d.slug }, props: { doctor: d } }));
+}
+
+const { doctor } = Astro.props;
+const others = doctors.filter((d) => d.slug !== doctor.slug).slice(0, 4);
+---
+<BaseLayout
+  title={`Dr. ${doctor.firstName} ${doctor.lastName}`}
+  description={`Dr. ${doctor.firstName} ${doctor.lastName}, ${doctor.credentials} — ${doctor.tagline}`}
+>
+  <article>
+    <!-- Header -->
+    <section class="border-b border-ink-100 bg-gradient-to-b from-brand-50/40 to-white">
+      <div class="container-prose py-14 sm:py-20">
+        <a href="/doctors" class="text-sm text-brand-700 hover:text-brand-800 no-underline">← All doctors</a>
+        <div class="mt-6 flex flex-col sm:flex-row items-start gap-8">
+          <div class="flex-shrink-0 h-36 w-36 sm:h-44 sm:w-44 flex items-center justify-center">
+            <img
+              src={doctor.image}
+              alt={`Dr. ${doctor.firstName} ${doctor.lastName}`}
+              class="max-h-full max-w-full object-contain"
+            />
+          </div>
+          <div class="flex-1">
+            <div class="eyebrow mb-2">{doctor.shortTitle}</div>
+            <h1 class="text-3xl sm:text-4xl font-semibold">
+              Dr. {doctor.firstName} {doctor.lastName}
+              <span class="block sm:inline text-ink-400 font-normal text-lg sm:ml-3 mt-1 sm:mt-0">{doctor.credentials}</span>
+            </h1>
+            <p class="mt-4 text-lg text-ink-600 leading-relaxed max-w-2xl">{doctor.tagline}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Body -->
+    <section class="bg-white">
+      <div class="container-prose py-14 grid lg:grid-cols-3 gap-10">
+        <!-- Bio + focus (left, wide) -->
+        <div class="lg:col-span-2 space-y-10">
+          <div>
+            <h2 class="text-2xl font-semibold mb-4">About</h2>
+            <div class="space-y-4 text-ink-700 leading-relaxed max-w-prose">
+              {doctor.bio.map((p) => <p>{p}</p>)}
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-semibold mb-4">Areas of focus</h2>
+            <ul class="grid sm:grid-cols-2 gap-2">
+              {doctor.focus.map((f) => (
+                <li class="flex items-start gap-2.5 text-ink-700">
+                  <svg class="mt-1 flex-shrink-0 text-brand-600" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {doctor.education.length > 0 && (
+            <div>
+              <h2 class="text-2xl font-semibold mb-4">Education & training</h2>
+              <ol class="relative border-l-2 border-brand-100 pl-5 space-y-4">
+                {doctor.education.map((e) => (
+                  <li>
+                    <span class="absolute -left-[7px] mt-1.5 h-3 w-3 rounded-full bg-brand-600"></span>
+                    <div class="text-sm text-brand-700 font-semibold">{e.year}</div>
+                    <div class="text-ink-700">{e.detail}</div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </div>
+
+        <!-- Side facts -->
+        <aside class="space-y-4">
+          <div class="card">
+            <div class="eyebrow mb-3">At a glance</div>
+            <dl class="space-y-3 text-sm">
+              <div>
+                <dt class="text-ink-500">Languages</dt>
+                <dd class="text-ink-800 mt-0.5">{doctor.languages.join(', ')}</dd>
+              </div>
+              {doctor.hospital && (
+                <div>
+                  <dt class="text-ink-500">Hospital privileges</dt>
+                  <dd class="text-ink-800 mt-0.5">{doctor.hospital}</dd>
+                </div>
+              )}
+              <div>
+                <dt class="text-ink-500">Clinic</dt>
+                <dd class="text-ink-800 mt-0.5">Tri-City Eye Care, Kitchener</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="card bg-brand-50/40 border-brand-100">
+            <h3 class="text-base font-semibold text-ink-900">Booking</h3>
+            <p class="mt-2 text-sm text-ink-600 leading-relaxed">
+              Dr. {doctor.lastName} sees new patients by referral from an eye care provider. Once a referral is received,
+              the clinic will contact the patient to schedule.
+            </p>
+            <a href="/referrals" class="mt-3 inline-block text-sm text-brand-700 hover:text-brand-800">Referral details →</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Other doctors -->
+    <section class="bg-ink-50/60 border-t border-ink-100">
+      <div class="container-prose py-12">
+        <h2 class="text-xl font-semibold mb-6">Other doctors at the clinic</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {others.map((d) => (
+            <a href={`/doctors/${d.slug}`} class="card no-underline flex items-center gap-4">
+              <div class="flex-shrink-0 h-14 w-14 flex items-center justify-center">
+                <img src={d.image} alt={`Dr. ${d.firstName} ${d.lastName}`} loading="lazy" class="max-h-full max-w-full object-contain" />
+              </div>
+              <div class="min-w-0">
+                <div class="text-sm font-semibold text-ink-900 truncate">Dr. {d.firstName} {d.lastName}</div>
+                <div class="text-xs text-ink-500 mt-0.5 truncate">{d.credentials}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
