@@ -11,6 +11,7 @@ export type Doctor = {
   bio: string[];
   hospital?: string;
   image: string;
+  reviewUrl?: string;
 };
 
 export const doctors: Doctor[] = [
@@ -57,6 +58,7 @@ export const doctors: Doctor[] = [
       { year: '2016', detail: 'FRCS(C), Ophthalmology — McMaster University' },
     ],
     hospital: 'Cambridge Memorial Hospital',
+    reviewUrl: 'https://www.ratemds.com/doctor-ratings/dr-manreet-alangh-cambridge-on-ca/',
     bio: [
       'Dr. Alangh grew up in the Kitchener–Waterloo region and returned to practice in his hometown. He is a comprehensive eye physician and surgeon with a particular interest in medical retina.',
       'His research interests center on medical retina and premium intraocular lens technology, with six peer-reviewed publications in ophthalmology journals.',
@@ -86,6 +88,7 @@ export const doctors: Doctor[] = [
       { year: '2023', detail: 'FRCS(C), Ophthalmology — McMaster University' },
     ],
     hospital: 'Cambridge Memorial Hospital',
+    reviewUrl: 'https://www.ratemds.com/doctor-ratings/dr-husayn-gulamhusein-kitchener-on-ca/',
     bio: [
       'Dr. Gulamhusein subspecializes in medical glaucoma alongside a comprehensive ophthalmology and cataract surgery practice. He completed fellowship training in glaucoma and advanced anterior segment surgery at the University of Toronto.',
       'He completed additional training in manual small incision cataract surgery at Aravind Eye Hospital — one of the world’s leading high-volume cataract institutions. He continues to teach medical students and residents at McMaster University.',
